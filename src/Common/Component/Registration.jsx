@@ -1,5 +1,6 @@
 import React, { use, useState } from 'react'
 import CommonInput from './CommonInput'
+import SelectInput from './SelectInput'
 
 const Registration = () => {
 
@@ -22,7 +23,7 @@ const Registration = () => {
 
     }
 
-    
+
     const handleChange = (event) => {
         const inptVal = event.target.value;
         const inptName = event.target.name;
@@ -74,7 +75,18 @@ const Registration = () => {
                             label="Last Name" />
 
                     </div>
-                    <button className='border border-black py-2 px-4 my-2 rounded-lg' type="submit" onClick={handleSubmit}>Submit</button>
+                    {/* //gender */}
+
+                    <div className='text-xl text-center mb-2'>Gender*</div>
+                    <SelectInput
+                        label="Gender"
+                        name="gender"
+                        value={formData.gender}
+                        onChange={handleChange}
+                        options={["Male", "Female", "Other"]} />
+
+
+                    {/* <button className='border border-black py-2 px-4 my-2 rounded-lg' type="submit" onClick={handleSubmit}>Submit</button> */}
 
                 </div>
             </div>
