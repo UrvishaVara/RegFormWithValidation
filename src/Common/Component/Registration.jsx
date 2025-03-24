@@ -3,13 +3,41 @@ import CommonInput from './CommonInput'
 
 const Registration = () => {
 
-    const [firstName, setFirstName] = useState()
-    const [middleName, setMiddleName] = useState()
-    const [lastName, setLastName] = useState()
+    const [formData, setformData] = useState({})
+    const [errors, setErrors] = useState({})
 
-    const handleChange = () => {
+    const handleSubmit = () => {
+        let localErrors = {};
+        if (!formData.firstName) {
+            localErrors = { ...localErrors, firstName: "please enter your FirstName" }
+        }
+        if (!formData.middleName) {
+            localErrors = { ...localErrors, middleName: "please enter your MiddleName" }
+        }
+        if (!formData.lastName) {
+            localErrors = { ...localErrors, lastName: "please enter your LastName" }
+        }
+
+        setErrors(localErrors);
 
     }
+
+    
+    const handleChange = (event) => {
+        const inptVal = event.target.value;
+        const inptName = event.target.name;
+
+        if (inptVal === '') {
+            setErrors({ ...errors, [inptName]: `enter your ${inptName}` })
+        }
+        else {
+            setErrors({ ...errors, [inptName]: '' })
+        }
+
+        setformData({ ...formData, [inptName]: inptVal })
+    }
+
+
 
     return (
         <div>
@@ -22,28 +50,31 @@ const Registration = () => {
                     <div className='flex gap-3'>
 
                         <CommonInput
-                            label="First Name"
                             type="text"
-                            name="firstname"
-                            value={firstName}
-                            onChange={handleChange}/>
+                            name="firstName"
+                            value={formData.firstName}
+                            onChange={handleChange}
+                            errors={errors}
+                            label="First Name" />
 
                         <CommonInput
                             type="text"
-                            name="middlename"
-                            value={middleName}
+                            name="middleName"
+                            value={formData.middleName}
                             onChange={handleChange}
+                            errors={errors}
                             label="Middle Name" />
 
                         <CommonInput
                             type="text"
-                            name="lastname"
-                            value={lastName}
+                            name="lastName"
+                            value={formData.lastName}
                             onChange={handleChange}
+                            errors={errors}
                             label="Last Name" />
 
                     </div>
-                    {/* \\Birthdate and Gender */}
+                    <button className='border border-black py-2 px-4 my-2 rounded-lg' type="submit" onClick={handleSubmit}>Submit</button>
 
                 </div>
             </div>
